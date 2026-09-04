@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>NaijaLearn Challenge 🔥</title>
+<meta property="og:title" content="You've been challenged on NaijaLearn 🧠" />
+<meta property="og:description" content="Someone thinks they're smarter than you. Prove them wrong." />
+<meta property="og:type" content="website" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --neon-cyan: #00e5ff;
+    --neon-purple: #b388ff;
+    --neon-gold: #ffd700;
+    --bg: #05060f;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    position: relative;
+  }
+
+  /* Animated ambient blobs */
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.35;
+    z-index: 0;
+    animation: float 8s ease-in-out infinite;
+  }
+  .blob1 { width: 300px; height: 300px; background: var(--neon-cyan); top: -80px; left: -80px; }
+  .blob2 { width: 340px; height: 340px; background: var(--neon-purple); bottom: -100px; right: -80px; animation-delay: -3s; }
+  .blob3 { width: 220px; height: 220px; background: var(--neon-gold); top: 40%; left: 60%; animation-delay: -5s; opacity: 0.2; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -30px) scale(1.1); }
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 28px;
+    padding: 36px 28px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 60px rgba(0, 229, 255, 0.15), 0 20px 60px rgba(0,0,0,0.6);
+    animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: rgba(0, 229, 255, 0.12);
+    border: 1px solid rgba(0, 229, 255, 0.4);
+    color: var(--neon-cyan);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+  .badge::before { content: '⚡'; }
+
+  .emoji-burst {
+    font-size: 64px;
+    margin-bottom: 14px;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #fff, var(--neon-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p.subtitle {
+    color: rgba(255,255,255,0.65);
+    font-size: 14.5px;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  #statusLine {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+    min-height: 18px;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(0,229,255,0.25);
+    border-top-color: var(--neon-cyan);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 17px;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    color: #05060f;
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.35);
+  }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  #fallback {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  #fallback.show { display: block; opacity: 1; }
+
+  .steps {
+    text-align: left;
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.8;
+  }
+  .steps b { color: var(--neon-gold); }
+
+  .footer-tag {
+    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <div class="card">
+    <div class="badge">Live Challenge</div>
+    <div class="emoji-burst" id="emojiBurst">🧠</div>
+    <h1 id="titleText">You've Been Challenged!</h1>
+    <p class="subtitle" id="subtitleText">Someone out there thinks they're smarter than you. Only one way to find out.</p>
+
+    <div id="statusLine"><span class="spinner"></span>Opening NaijaLearn…</div>
+
+    <a href="#" class="btn btn-primary" id="openAppBtn">Open in NaijaLearn</a>
+
+    <div id="fallback">
+      <div class="steps">
+        <div><b>1.</b> Tap "Get NaijaLearn" below</div>
+        <div><b>2.</b> Install Zetra Store, then grab NaijaLearn inside it</div>
+        <div><b>3.</b> Come back to this WhatsApp chat and tap the challenge link again</div>
+      </div>
+      <a href="https://zetrastoredownloadlink.lovable.app" class="btn btn-ghost" id="downloadBtn" target="_blank" rel="noopener">Get NaijaLearn →</a>
+    </div>
+
+    <div class="footer-tag">NAIJALEARN · Practice. Prepare. Pass.</div>
+  </div>
+
+<script>
+  // Reads ?id=<challengeId> from the URL and attempts to hand off into
+  // the app via its custom scheme. If the app isn't installed, the
+  // browser stays on this page (no error, no crash) — after a short
+  // timeout we reveal the download fallback instead of spinning forever.
+  const params = new URLSearchParams(window.location.search);
+  const challengeId = params.get('id') || '';
+  const appScheme = challengeId
+    ? `naijalearn://challenge/${encodeURIComponent(challengeId)}`
+    : `naijalearn://home`;
+
+  document.getElementById('openAppBtn').setAttribute('href', appScheme);
+
+  let appOpened = false;
+
+  function tryOpenApp() {
+    // Hidden iframe trick: attempting navigation to a custom scheme the
+    // OS doesn't recognize fails silently on most mobile browsers rather
+    // than throwing — so we just race it against a timeout instead of
+    // trying to detect success/failure directly (which isn't reliably
+    // possible from JS alone).
+    window.location.href = appScheme;
+  }
+
+  // If the page is still visible after this timeout, we assume the
+  // custom scheme did not hand off to an installed app.
+  const FALLBACK_DELAY_MS = 1600;
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) appOpened = true;
+  });
+
+  window.addEventListener('load', () => {
+    tryOpenApp();
+    setTimeout(() => {
+      if (!appOpened) {
+        document.getElementById('statusLine').style.display = 'none';
+        document.getElementById('fallback').classList.add('show');
+      }
+    }, FALLBACK_DELAY_MS);
+  });
+
+  document.getElementById('openAppBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    tryOpenApp();
+  });
+</script>
+
+</body>
+</html>
